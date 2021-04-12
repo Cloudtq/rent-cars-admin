@@ -52,7 +52,7 @@
             <slot v-if="item.slotName" :name="item.slotName" :data="scope.row"></slot>
             <!--删除-->
             <el-button size="small" v-if="item.default && item.default.deleteButton" :loading="scope.row[item.default.deleteKey || 'id'] == rowId"
-              @click="delConfirm(scope.row[item.default.deleteKey || 'id'])">删除</el-button>
+              @click="delConfirm(scope.row[item.default.deleteKey || 'id'],scope)">删除</el-button>
           </template>
         </el-table-column>
         <!--纯文本渲染-->
@@ -179,8 +179,8 @@ export default {
     /**
      * 删除
      */
-    delConfirm(id) {
-      console.log(id)
+    delConfirm(id, scope) {
+      console.log(scope)
       this.$confirm('确定删除此信息', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
