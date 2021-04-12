@@ -5,25 +5,26 @@
   <el-dialog title="车辆自定义属性添加" width="30%" :visible.sync="dialogVisible" class="cars-dialog-center" @close="close" @opened="opened" :close-on-click-modal="false">
     <VueForm ref="formVue" :formData="form_data" :formItme="form_item" :formHandler="form_handler"></VueForm>
   </el-dialog>
+
 </template>
 
 <script>
 // 组件
-import VueForm from "@c/form";
+import VueForm from '@c/form'
 // API
-import { CarsTypeAdd } from "@/api/carsAttr";
+import { CarsTypeAdd } from '@/api/carsAttr'
 export default {
-  name: "",
+  name: '',
   components: { VueForm },
   props: {
     flagVisible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     data: {
       type: Object,
-      defult: () => {}
-    }
+      defult: () => {},
+    },
   },
   data() {
     return {
@@ -31,72 +32,77 @@ export default {
       dialogVisible: false,
       // 表单数据
       form_data: {
-        key: "",
-        value: "",
-        typeValue: ""
+        key: '',
+        value: '',
+        typeValue: '',
       },
       // 表单项
       form_item: [
-        { type: "Input", label: "当前属性", prop: "typeValue", disabled: true },
-        { type: "Input", label: "字段", prop: "key" },
-        { type: "Input", label: "文本", prop: "value" },
+        { type: 'Input', label: '当前属性', prop: 'typeValue', disabled: true },
+        { type: 'Input', label: '字段', prop: 'key' },
+        { type: 'Input', label: '文本', prop: 'value' },
       ],
       // 表单按钮
       form_handler: [
-        { label: "确定", key: "submit",  type: "danger", handler: () => this.submit() }
+        {
+          label: '确定',
+          key: 'submit',
+          type: 'danger',
+          handler: () => this.submit(),
+        },
       ],
       // 状态
       radio_disabled: this.$store.state.config.radio_disabled,
       // 选中的LOGO
-      logo_current: "",
+      logo_current: '',
       // logo
-      logo: []
-    };
+      logo: [],
+    }
   },
   methods: {
-    opened(){},
+    opened() {},
     /** 提交 */
-    submit(){
+    submit() {
       this.add()
     },
-    add(){
+    add() {
       const requestData = {
         typeId: this.data.id,
         key: this.form_data.key,
-        value: this.form_data.value
+        value: this.form_data.value,
       }
-      CarsTypeAdd(requestData).then(response => {
+      CarsTypeAdd(requestData).then((response) => {
         this.$message({
           message: response.message,
-          type: "success"
+          type: 'success',
         })
         this.reset()
       })
     },
     /** 重置表单 */
-    reset(formName){
-      this.$refs.formVue.resetForm();
+    reset(formName) {
+      this.$refs.formVue.resetForm()
     },
     close() {
-      this.reset("form");
+      this.reset('form')
       // 关闭窗口
-      this.dialogVisible = false;
-      this.$emit("update:flagVisible", false); // {}
-    }
+      this.dialogVisible = false
+      this.$emit('update:flagVisible', false) // {}
+    },
   },
   watch: {
     flagVisible: {
       handler(newValue, oldValue) {
-        this.dialogVisible = newValue;
-      }
+        this.dialogVisible = newValue
+      },
     },
     data: {
       handler(newValue) {
-        this.form_data.typeValue = newValue.value;
-      }
-    }
-  }
-};
+        this.form_data.typeValue = newValue.value
+      },
+    },
+  },
+}
 </script>
 <style lang='scss' scoped>
 </style>

@@ -139,8 +139,7 @@ export default {
     close() {
       this.reset("form");
       // 关闭窗口
-      this.dialogVisible = false;
-      this.$emit("update:flagVisible", false); // {}
+      this.$emit("update:flagVisible", false);
     }
   },
   watch: {
