@@ -65,7 +65,7 @@ export default {
             callback: (row) => {
               const carsStatus = this.$store.state.config.cars_status
               const status = carsStatus[row.carsStatus]
-              return status ? status.zh : ''
+              return status ? status.zh : '空闲中'
             },
           },
           { label: '停车场', prop: 'parkingName' },
@@ -185,7 +185,6 @@ export default {
     },
     /** 显示地图 */
     showMap(data) {
-      this.map_show = true
       this.parking_data = data
     },
     lock(data) {
